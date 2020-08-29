@@ -3,6 +3,7 @@ package pixbuilder
 import "image"
 
 // NewASG constructs a new AutoStereoGram from the provided pattern and the provided depth map.
+// The size of the resulting image is the size of the depth map image.
 func NewASG(pat *Pattern, dmap *image.Gray) image.Image {
 
 	// l,L : distance to screen, distance between eyes (in pixels)
