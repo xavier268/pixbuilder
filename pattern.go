@@ -30,8 +30,8 @@ func NewPatternImage(im image.Image) *Pattern {
 	return p
 }
 
-// NewPatternRandom generates a Pattern of given period.
-func NewPatternRandom(x, y int) *Pattern {
+// NewPatternRandom1 generates a Pattern of given period.
+func NewPatternRandom1(x, y int) *Pattern {
 	p := new(Pattern)
 	p.xperiod, p.yperiod = x, y
 	rgba := image.NewRGBA(image.Rect(0, 0, x, y))
@@ -48,6 +48,40 @@ func NewPatternRandom(x, y int) *Pattern {
 			c.G = uint8(rand.Intn(0x10000))
 			c.B = uint8(rand.Intn(0x10000))
 			rgba.Set(i, j, c)
+		}
+	}
+	p.Image = rgba
+	return p
+}
+
+// NewPatternRandom2 generate another kind of randomness
+func NewPatternRandom2(x, y int) *Pattern {
+	p := new(Pattern)
+	p.xperiod, p.yperiod = x, y
+	rgba := image.NewRGBA(image.Rect(0, 0, x, y))
+	c := color.RGBA{
+		R: 0xFF,
+		G: 0xFF,
+		B: 0xFF,
+		A: 0xFF,
+	}
+	// Fill white
+	for i := 0; i < x; i++ {
+		for j := 0; j < y; j++ {
+			rgba.Set(i, j, c)
+		}
+	}
+
+	// draw random lines
+	for k := 0; k < p.xperiod*p.yperiod/50; k++ {
+		c.R = uint8(rand.Intn(0x100))
+		c.G = uint8(rand.Intn(0x100))
+		c.B = uint8(rand.Intn(0x100))
+		x, y := rand.Intn(p.xperiod), rand.Intn(p.yperiod)
+		for l := 0; l < 300; l++ {
+			rgba.Set(x, y, c)
+			dx, dy := rand.Intn(5)-2, rand.Intn(5)-2
+			x, y = x+dx, y+dy
 		}
 	}
 	p.Image = rgba

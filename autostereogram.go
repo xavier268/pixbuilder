@@ -5,6 +5,7 @@ import "image"
 // NewASG constructs a new AutoStereoGram from the provided pattern and the provided depth map.
 func NewASG(pat *Pattern, dmap *image.Gray) image.Image {
 
+	// l,L : distance to screen, distance between eyes (in pixels)
 	l, L := 200, 200
 
 	rgba := image.NewNRGBA(dmap.Bounds())

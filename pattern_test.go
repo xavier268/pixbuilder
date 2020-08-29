@@ -9,8 +9,12 @@ import (
 var _ image.Image = new(Pattern)
 
 func TestConstructPatternRandom(t *testing.T) {
-	p := NewPatternRandom(50, 200)
-	SaveAs(p, "testpatternrandom")
+	p := NewPatternRandom1(50, 200)
+	SaveAs(p, "testpatternrandom1")
+}
+func TestConstructPatternRandom2(t *testing.T) {
+	p := NewPatternRandom2(50, 200)
+	SaveAs(p, "testpatternrandom2")
 }
 
 func TestConstructPatternImage(t *testing.T) {
