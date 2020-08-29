@@ -13,6 +13,8 @@ ASG are computed using both a Pattern and a Depth-Map as input. Utilities are pr
 
 See autostereogram_test and example.png for examples.
 
+![](example.png)
+
 
 
 ## To do
