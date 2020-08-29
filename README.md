@@ -2,8 +2,11 @@
 Various pixel by pixel image construction utilities
 
 
-# Autostereogram
+## Autostereogram
 
+Autostrereogram(ASG) are images that can be viewed as stereo image (look it up in Wikipedia) without resorting to any external device.
 
+ASG are computed using both a Pattern and a Depth-Map as input. Utilities are provided to generate these from standanrd png images.
 
+See autostereogram_test for examples.
 
