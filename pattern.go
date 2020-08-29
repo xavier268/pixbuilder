@@ -73,7 +73,7 @@ func NewPatternRandom2(x, y int) *Pattern {
 	}
 
 	// draw random lines
-	for k := 0; k < p.xperiod*p.yperiod/50; k++ {
+	for k := 0; k < p.xperiod*p.yperiod/10; k++ {
 		c.R = uint8(rand.Intn(0x100))
 		c.G = uint8(rand.Intn(0x100))
 		c.B = uint8(rand.Intn(0x100))
@@ -81,7 +81,13 @@ func NewPatternRandom2(x, y int) *Pattern {
 		for l := 0; l < 300; l++ {
 			rgba.Set(x, y, c)
 			dx, dy := rand.Intn(5)-2, rand.Intn(5)-2
-			x, y = x+dx, y+dy
+			if x < 0 {
+				x += p.xperiod
+			}
+			if y < 0 {
+				y += p.yperiod
+			}
+			x, y = (x+dx)%p.xperiod, (y+dy)%p.yperiod
 		}
 	}
 	p.Image = rgba

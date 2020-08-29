@@ -15,7 +15,7 @@ func TestASG(t *testing.T) {
 func TestASG2(t *testing.T) {
 
 	pat := NewPatternRandom2(150, 150)
-	dmap := LoadGrayFrom("Symbol.png")
+	dmap := LoadGrayFrom("SmileyOK.png")
 
 	asg := NewASG(pat, dmap)
 	SaveAs(asg, "testasg2")
