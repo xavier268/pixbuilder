@@ -12,7 +12,7 @@ func NewASG(pat *Pattern, dmap *image.Gray) image.Image {
 	rgba := image.NewNRGBA(dmap.Bounds())
 
 	for y := 0; y < rgba.Rect.Dy(); y++ {
-		// y is vertical coordiante. No influence on stereo effect.
+		// y is vertical coordinate. No influence on stereo effect.
 
 		for x := 0; x < rgba.Rect.Dx(); x++ {
 			// first, fill result image with pattern
@@ -21,16 +21,16 @@ func NewASG(pat *Pattern, dmap *image.Gray) image.Image {
 
 		for xz := 0; xz < rgba.Rect.Dx(); xz++ {
 			// xz is the depth map horizontal coordinate, z is the gray color, representing the depth.
-			// darker is closer, white is far away.
+			// larger, darker is closer ; smaller, whiter is far away.
 			z := int(dmap.GrayAt(xz, y).Y)
-			// when both eyes point to xz, the difference between the points where the rays intersect the image is 2*dx
+			// when both eyes point to xz, the distance between the points where the rays intersect the image is 2*dx
 			dx := (z * L) / ((z + l) * 2)
-			// this x-dx is the left) eye intersect
+			// this x-dx is the left eye intersect
 			x := xz - dx
 			if x > 0 {
-				// get pixel for the left eye ...
+				// get pixel from the left eye intersect ...
 				c := rgba.At(x, y)
-				// ... copy in the right eye pixel intersect, x+dx
+				// ... and copy it in the right eye pixel intersect, x+dx
 				rgba.Set(x+dx, y, c)
 			}
 		}

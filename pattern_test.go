@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-// Check that Pattern is an Image ?
+// Compiler checks that Pattern is an Image ?
 var _ image.Image = new(Pattern)
 
 func TestConstructPatternRandom(t *testing.T) {

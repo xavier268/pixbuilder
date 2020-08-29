@@ -9,7 +9,7 @@ import (
 // Pattern provide a color for each point, and repeats itself horizontally and vertically.
 // A Pattern is also an image.Image.
 type Pattern struct {
-	xperiod, yperiod int // The spatial periods
+	xperiod, yperiod int // Horizontal and vertical periods
 	image.Image          // The image that is repeated
 }
 
@@ -18,7 +18,7 @@ func (p *Pattern) At(x, y int) color.Color {
 	return p.Image.At(x%p.xperiod, y%p.yperiod)
 }
 
-// NewPatternImage generate a Pattern from the underlying image.
+// NewPatternImage generate a Pattern from the provided image.
 func NewPatternImage(im image.Image) *Pattern {
 	if im == nil {
 		panic("Image expected to create Pattern")
@@ -30,7 +30,7 @@ func NewPatternImage(im image.Image) *Pattern {
 	return p
 }
 
-// NewPatternRandom1 generates a Pattern of given period.
+// NewPatternRandom1 generates a random Pattern of given period.
 func NewPatternRandom1(x, y int) *Pattern {
 	p := new(Pattern)
 	p.xperiod, p.yperiod = x, y
@@ -54,7 +54,7 @@ func NewPatternRandom1(x, y int) *Pattern {
 	return p
 }
 
-// NewPatternRandom2 generate another kind of randomness
+// NewPatternRandom2 generate another random pattern of given period.
 func NewPatternRandom2(x, y int) *Pattern {
 	p := new(Pattern)
 	p.xperiod, p.yperiod = x, y
@@ -65,14 +65,15 @@ func NewPatternRandom2(x, y int) *Pattern {
 		B: 0xFF,
 		A: 0xFF,
 	}
-	// Fill white
+	// Fill with white
 	for i := 0; i < x; i++ {
 		for j := 0; j < y; j++ {
 			rgba.Set(i, j, c)
 		}
 	}
 
-	// draw random lines
+	// draw "random walk" of random colors.
+	// The number of "walks" are proportionnate to the surface, ensuring efficent coverage.
 	for k := 0; k < p.xperiod*p.yperiod/10; k++ {
 		c.R = uint8(rand.Intn(0x100))
 		c.G = uint8(rand.Intn(0x100))
@@ -81,12 +82,8 @@ func NewPatternRandom2(x, y int) *Pattern {
 		for l := 0; l < 300; l++ {
 			rgba.Set(x, y, c)
 			dx, dy := rand.Intn(5)-2, rand.Intn(5)-2
-			if x < 0 {
-				x += p.xperiod
-			}
-			if y < 0 {
-				y += p.yperiod
-			}
+			x += p.xperiod
+			y += p.yperiod
 			x, y = (x+dx)%p.xperiod, (y+dy)%p.yperiod
 		}
 	}
