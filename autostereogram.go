@@ -23,7 +23,7 @@ func NewASG(pat *Pattern, dmap *image.Gray) image.Image {
 			// xz is the depth map horizontal coordinate, z is the gray color, representing the depth.
 			// larger, darker is closer ; smaller, whiter is far away.
 			z := int(dmap.GrayAt(xz, y).Y)
-			// when both eyes point to xz, the distance between the points where the rays intersect the image is 2*dx
+			// when both eyes point to xz, the distance between the points where the rays intersect the image is dx, (the "separation")
 			dx := (z * L) / (z + l)
 			// this x-dx/2 is the left eye intersect
 			x := xz - dx/2
