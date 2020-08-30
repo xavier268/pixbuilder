@@ -24,9 +24,9 @@ func NewASG(pat *Pattern, dmap *image.Gray) image.Image {
 			// larger, darker is closer ; smaller, whiter is far away.
 			z := int(dmap.GrayAt(xz, y).Y)
 			// when both eyes point to xz, the distance between the points where the rays intersect the image is 2*dx
-			dx := (z * L) / ((z + l) * 2)
-			// this x-dx is the left eye intersect
-			x := xz - dx
+			dx := (z * L) / (z + l)
+			// this x-dx/2 is the left eye intersect
+			x := xz - dx/2
 			if x > 0 {
 				// get pixel from the left eye intersect ...
 				c := rgba.At(x, y)
